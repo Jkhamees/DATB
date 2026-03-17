@@ -1,0 +1,7 @@
+{
+  "name": "Copy of DATB — Web3 Analytics Platform",
+  "description": "A professional Web3 analytics and crypto intelligence platform providing real-time blockchain insights, token intelligence, and wallet tracking.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

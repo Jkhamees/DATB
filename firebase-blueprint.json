@@ -1,0 +1,53 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Stores user preferences, watchlists, and account details.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The unique ID of the user from Firebase Auth." },
+        "displayName": { "type": "string", "description": "The user's display name." },
+        "email": { "type": "string", "format": "email", "description": "The user's email address." },
+        "photoURL": { "type": "string", "description": "URL to the user's profile picture." },
+        "watchlist": { 
+          "type": "array", 
+          "items": { "type": "string" },
+          "description": "List of token IDs the user is watching."
+        },
+        "savedWallets": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of blockchain addresses the user has saved."
+        },
+        "role": { "type": "string", "enum": ["user", "admin"], "description": "The user's role in the platform." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the profile was created." }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Alert": {
+      "title": "Alert",
+      "description": "User-defined alerts for token prices or whale activity.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The ID of the user who created the alert." },
+        "type": { "type": "string", "enum": ["price", "whale"], "description": "The type of alert." },
+        "target": { "type": "string", "description": "The token symbol or wallet address to monitor." },
+        "condition": { "type": "string", "description": "The condition for triggering (e.g., 'above', 'below')." },
+        "value": { "type": "number", "description": "The threshold value for the alert." },
+        "isActive": { "type": "boolean", "description": "Whether the alert is currently active." },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "type", "target"]
+    }
+  },
+  "firestore": {
+    "/users/{uid}": {
+      "schema": "UserProfile",
+      "description": "Collection of user profiles."
+    },
+    "/alerts/{alertId}": {
+      "schema": "Alert",
+      "description": "Collection of user-defined alerts."
+    }
+  }
+}
